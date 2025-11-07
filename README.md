@@ -7,12 +7,6 @@
 
 
 
-<img width="212" height="399" alt="image" src="https://github.com/user-attachments/assets/85221f70-ba9b-4f76-8d73-1552a35ab67e" />
-<img width="217" height="394" alt="image" src="https://github.com/user-attachments/assets/0339b116-a165-4784-acfa-910b9a82bea3" />
-<img width="216" height="397" alt="image" src="https://github.com/user-attachments/assets/f0015f9f-ee18-4a68-9f5b-d48f4f1dab0b" />
-
-
-
 ## Features:
 
 * **Modular Architecture:** Uses the Coordinator pattern (`MainCoordinatorView` and `AppState`) for clear, decoupled navigation.
