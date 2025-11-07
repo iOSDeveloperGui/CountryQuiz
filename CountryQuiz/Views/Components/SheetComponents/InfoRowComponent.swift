@@ -8,14 +8,13 @@ import Foundation
 import SwiftUI
 
 struct InfoRowComponent: View{
-    //MARK: - Attributes
+  
     let icon: String
     let title: String
     let subTitle: String
     
-    //MARK: - Body
     var body: some View{
-        HStack(alignment: .top, spacing: 16){
+        HStack(alignment: .top, spacing: 12){
             Image(systemName: icon)
                 .font(.title2)
                 .foregroundStyle(.brownn)
@@ -24,13 +23,14 @@ struct InfoRowComponent: View{
                 Text(title)
                     .font(.headline)
                     .foregroundStyle(.primary)
-                    
+                
                 Text(subTitle)
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
-                    
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(4)
             }
-            .padding(.horizontal, 16)
+            
         }
     }
 }

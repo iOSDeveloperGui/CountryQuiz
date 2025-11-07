@@ -16,13 +16,19 @@ final class QuizViewModel: ObservableObject, GameTimeDelegate{
     private let questionGenerator: QuestionGenerator
     private let gameTimer: GameTimer
     private let difficulty: Difficulty
+    private let coreDataVM: CoreDataViewModel
+    private let travellerName: String
+    private let travellerImage: String
     private let onGameOver: (Int) -> Void
     
-    init(countryService: CountryService, questionGenerator: QuestionGenerator, gameTimer: GameTimer, difficulty: Difficulty, onGameOver: @escaping (Int) -> Void){
+    init(countryService: CountryService, questionGenerator: QuestionGenerator, gameTimer: GameTimer, difficulty: Difficulty, coreDataVM: CoreDataViewModel, travellerName: String, travellerImage: String, onGameOver: @escaping (Int) -> Void){
         self.countryService = countryService
         self.questionGenerator = questionGenerator
         self.gameTimer = gameTimer
         self.difficulty = difficulty
+        self.coreDataVM = coreDataVM
+        self.travellerName = travellerName
+        self.travellerImage = travellerImage
         self.onGameOver = onGameOver
         self.gameTimer.delegate = self
     }
@@ -36,7 +42,7 @@ final class QuizViewModel: ObservableObject, GameTimeDelegate{
     @Published var bannerText: String? = nil
     @Published var selectedAnswer: String? = nil
     @Published var timeRemaining = 10
-    @Published var currentQuestionIndex: Int = 0
+    @Published var currentQuestionIndex: Int = 1
     @Published var isDataLoaded: Bool = false
     
     //MARK: - Computed properties
@@ -49,12 +55,13 @@ final class QuizViewModel: ObservableObject, GameTimeDelegate{
     }
     
     var currentStage: String{
-        let current = currentQuestionIndex + 1
-        return "Question \(current) of \(totalQuestions)"
+        let current = min(currentQuestionIndex, totalQuestions)
+        return "Questions: \(current) of \(totalQuestions)"
     }
     
     //MARK: - Private Properties
     public var countries: [Country] = []
+    private var usedCountries: Set<String> = []
     private let bannerMessages: [String] = ["Awesome! 😁", "Good job! 😀", "Great! 😀"]
     
     //MARK: - Functions
@@ -95,6 +102,7 @@ final class QuizViewModel: ObservableObject, GameTimeDelegate{
     }
     
     func timerDidUpdate(timeRemaining: Int) {
+        gameTimer.cancel()
         self.timeRemaining = timeRemaining
     }
     
@@ -103,7 +111,13 @@ final class QuizViewModel: ObservableObject, GameTimeDelegate{
     }
     
     public func generateQuestion(){
-        guard let newQuestion = questionGenerator.generateQuestion(from: countries) else{
+        if currentQuestionIndex > totalQuestions{
+            endGameAndSaveScore()
+            return
+        }
+        
+        guard let newQuestion = questionGenerator.generateQuestion(from: countries, excluding: usedCountries) else{
+            endGameAndSaveScore()
             return
         }
         
@@ -111,15 +125,15 @@ final class QuizViewModel: ObservableObject, GameTimeDelegate{
         selectedAnswer = nil
         showAnswerFeedback = nil
         
-        if currentQuestionIndex < totalQuestions{
-            currentQuestionIndex += 1
-        }
-        
         gameTimer.startTimer(seconds: 30)
     }
     
     
     private func handleCorrectAnswer(){
+        if let countryName = currentQuestion?.correctAnswer{
+            usedCountries.insert(countryName)
+        }
+        
         score += 5
         showAnswerFeedback = true
         bannerText = bannerMessages.randomElement() ?? "Awesome!"
@@ -129,8 +143,16 @@ final class QuizViewModel: ObservableObject, GameTimeDelegate{
                 try await Task.sleep(nanoseconds: 800_000_000)
                 await MainActor.run{
                     self.bannerText = nil
-                    self.generateQuestion()
+                    self.currentQuestionIndex += 1
+                    
+                    if self.currentQuestionIndex > self.totalQuestions{
+                        endGameAndSaveScore()
+                    } else{
+                        self.generateQuestion()
+                    }
                 }
+            } catch {
+                print("Task interrupted or failed.")
             }
         }
     }
@@ -149,23 +171,52 @@ final class QuizViewModel: ObservableObject, GameTimeDelegate{
                     selectedAnswer = nil
                     
                     if self.hearts == 0{
-                        self.onGameOver(self.score)
+                        endGameAndSaveScore()
                     } else{
-                        self.gameTimer.startTimer(seconds: self.timeRemaining)
+                        self.currentQuestionIndex += 1
+                        generateQuestion()
                     }
                 }
+            } catch {
+                print("Task interrupted or failed.")
             }
         }
     }
 
     private func handleTimeUp() {
         hearts = max(0, hearts - 1)
+        bannerText = "Time's up! ⏳"
         
-        if hearts == 0 {
-            onGameOver(score)
-        } else {
-            generateQuestion()
+        Task{
+            do{
+                try await Task.sleep(nanoseconds: 800_000_000)
+                await MainActor.run{
+                    self.bannerText = nil
+                    if hearts == 0{
+                        endGameAndSaveScore()
+                    } else {
+                        self.currentQuestionIndex += 1
+                        generateQuestion()
+                    }
+                }
+                
+            } catch{
+                print("Task interrupted or failed.")
+            }
         }
+
+        
+    }
+    
+    private func endGameAndSaveScore(){
+        gameTimer.cancel()
+        
+        coreDataVM.saveScore(
+            score: self.score,
+            travellerName: self.travellerName,
+            travellerImage: self.travellerImage
+        )
+        onGameOver(score)
     }
     
     

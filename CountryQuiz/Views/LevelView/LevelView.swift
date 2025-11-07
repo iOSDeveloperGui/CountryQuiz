@@ -9,12 +9,11 @@ import Foundation
 import SwiftUI
 
 struct LevelView: View{
-    //MARK: - EnvironmentObjects and State
+    
     @EnvironmentObject private var appState: AppState
     @EnvironmentObject private var viewModel: LevelViewModel
     @State private var selectedDifficult: String? = nil
     
-    //MARK: - Body
     var body: some View{
         NavigationStack{
             Form{
@@ -61,7 +60,7 @@ struct LevelView: View{
             .padding(.horizontal)
             .padding(.vertical, 16)
             .controlSize(.large)
-
+            
         }
         
     }

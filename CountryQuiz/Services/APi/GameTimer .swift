@@ -16,7 +16,6 @@ protocol GameTimeDelegate: AnyObject{
 @MainActor
 final class GameTimer{
     
-    //MARK: - Properties
     private var timerTask: Task<Void, Never>?
     @Published private var timeRemaining: Int = 0 
     

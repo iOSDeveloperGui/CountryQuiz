@@ -15,14 +15,13 @@ struct TravellerScoreComponent: View{
     let hearts: Int
     let timeRemaining: Int
     
-    
     var body: some View{
         ZStack {
             RoundedRectangle(cornerRadius: 12)
                 .fill(Color.black.opacity(0.4))
             
             RoundedRectangle(cornerRadius: 12)
-                .stroke(Color.blueEarth.opacity(0.8), lineWidth: 4)
+                .stroke(Color.clear, lineWidth: 4)
             
             HStack(spacing: 16){
                 Image(traveller.image)
@@ -32,12 +31,12 @@ struct TravellerScoreComponent: View{
                     .clipShape(RoundedRectangle(cornerRadius: 12))
                     .overlay(
                         RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color.yellow, lineWidth: 4)
+                            .stroke(Color.brownYellow, lineWidth: 4)
                     )
                     .shadow(radius: 4)
-    
-                VStack(alignment: .leading, spacing: 6){
                 
+                VStack(alignment: .leading, spacing: 6){
+                    
                     HStack(alignment: .bottom){
                         Text(traveller.name)
                             .font(.headline)
@@ -73,10 +72,9 @@ struct TravellerScoreComponent: View{
                 }
                 .padding(.vertical, 8)
                 
-                Spacer()
             }
             .padding(.horizontal, 16)
-            .padding(.vertical, 10) 
+            .padding(.vertical, 10)
         }
         .frame(width: 332)
     }

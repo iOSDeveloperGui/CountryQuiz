@@ -14,11 +14,13 @@ struct CountryQuizApp: App {
     @StateObject private var appState = AppState(
         context: PersistenceController.shared.container.viewContext
     )
+    @StateObject private var coreDataViewModel = CoreDataViewModel(viewContext: PersistenceController.shared.container.viewContext)
     
     var body: some Scene {
         WindowGroup {
             MainCoordinatorView()
                 .environmentObject(appState)
+                .environmentObject(coreDataViewModel) 
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }

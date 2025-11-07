@@ -13,13 +13,13 @@ struct BannerView: View {
     
     var body: some View {
         Text(message)
-            .font(.system(size: 22, weight: .bold, design: .rounded))
+            .font(.system(size: 24, weight: .bold, design: .rounded))
             .foregroundStyle(.white)
             .padding(.vertical, 12)
             .padding(.horizontal, 25)
             .background(
-                Capsule()
-                    .fill(Color.brownn)
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(Color.brownn.opacity(0.4))
                     .shadow(radius: 5)
             )
             .offset(y: -UIScreen.main.bounds.height / 2 + 100) 

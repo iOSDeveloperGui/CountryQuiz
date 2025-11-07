@@ -28,22 +28,21 @@ struct QuizView: View{
                             timeRemaining: viewModel.timeRemaining
                         )
                         .padding(.horizontal)
-                        .padding(.bottom, 16)
+                        .padding(.bottom, 12)
                     }
                     
-                    
-                    VStack(spacing: 8){
+                    HStack(spacing: 16){
                         Text(viewModel.currentStage)
-                            .font(.system(size: 24, weight: .bold, design: .rounded))
+                            .font(.system(size: 20, weight: .semibold, design: .rounded))
                             .foregroundStyle(Color.white)
                             .shadow(radius: 2)
                         
-                        Text("Difficulty: \(viewModel.difficultName)")
-                            .font(.system(size: 18, weight: .medium, design: .rounded))
+                        Text("Mode: \(viewModel.difficultName)")
+                            .font(.system(size: 20, weight: .semibold, design: .rounded))
                             .foregroundStyle(Color.white.opacity(0.8))
                     }
-                    .padding(.horizontal)
-                    .padding(.vertical, 12)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
                     
                     Rectangle()
                         .fill(Color.white.opacity(0.4))
@@ -96,21 +95,24 @@ struct QuizView: View{
                             .padding(.top, 16)
                             .padding(.bottom, 20)
                             
-                            ForEach(question.options, id: \.self){ option in
-                                Button(option){
-                                    viewModel.checkAnswer(answer: option)
+                            VStack{
+                                ForEach(question.options, id: \.self){ option in
+                                    Button(option){
+                                        viewModel.checkAnswer(answer: option)
+                                    }
+                                    .frame(width: 332, height: 60)
+                                    .font(.system(size: 16, weight: .medium, design: .rounded))
+                                    .background(
+                                        self.backgroundForOption(option: option, question: question)
+                                    )
+                                    .foregroundStyle(.white)
+                                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                                    .disabled(viewModel.selectedAnswer != nil)
                                 }
-                                .frame(width: 332, height: 60)
-                                .font(.system(size: 20, weight: .medium, design: .rounded))
-                                .background(
-                                    self.backgroundForOption(option: option, question: question)
-                                )
-                                .foregroundStyle(.white)
-                                .clipShape(RoundedRectangle(cornerRadius: 16))
-                                .disabled(viewModel.selectedAnswer != nil)
                             }
+                            .padding(.bottom, 20)
                         }
-                        .padding([.horizontal, .vertical], 20)
+                        .padding(.horizontal, 20)
                         
                     }
                     

@@ -9,14 +9,13 @@ import Foundation
 import SwiftUI
 
 struct CharacterCardComponent: View{
-    //MARK: - Properties
+    
     let traveller: Traveller
     let isSelected: Bool
     let onSelect: () -> Void
     
     private let cardWidth: CGFloat = 180
     
-    //MARK: - Body
     var body: some View{
         Button(action: { onSelect() }){
             ZStack{

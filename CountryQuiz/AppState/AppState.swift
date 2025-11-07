@@ -62,6 +62,9 @@ class AppState: ObservableObject{
             questionGenerator: questionGenerator,
             gameTimer: GameTimer(),
             difficulty: difficulty,
+            coreDataVM: coreDataVM,
+            travellerName: self.selectedCharacter?.name ?? "Guest Player",
+            travellerImage: self.selectedCharacter?.image ?? "person.crop.circle",
             onGameOver: { [ weak self ] finalScore in
                 self?.showGameOver(score: finalScore)
             })

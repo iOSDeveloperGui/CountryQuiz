@@ -13,7 +13,6 @@ protocol CountryServiceProtocol{
 
 class CountryServiceData: CountryServiceProtocol{
     
-    //MARK: - Implementing Protocol
     func fetchCountries() async throws -> [Country] {
         guard let url = URL(string: "https://restcountries.com/v3.1/all?fields=name,flags")
         else {
@@ -32,6 +31,4 @@ class CountryServiceData: CountryServiceProtocol{
             throw FlagApiError.decodingError(error)
         }
     }
-    
-    
 }

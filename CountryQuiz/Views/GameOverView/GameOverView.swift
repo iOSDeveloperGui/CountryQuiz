@@ -13,12 +13,9 @@ struct GameOverView: View{
     @State private var animate: Bool = false
     @State private var showingHighScoresSheet: Bool = false
     
-    //MARK: - Properties
     let score: Int
     let onRestart: () -> Void
     
-    
-    //MARK: - Body
     var body: some View{
         ZStack{
             LinearGradient(
@@ -29,7 +26,7 @@ struct GameOverView: View{
             .ignoresSafeArea()
             
             VStack(spacing: 32){
-                Text("💀 Game Over 💀")
+                Text("Your journey ends")
                     .font(.system(size: 36, weight: .bold, design: .rounded))
                     .foregroundStyle(.white)
                     .shadow(radius: 8)
@@ -52,7 +49,7 @@ struct GameOverView: View{
                     
                     GameOverButton(
                         title: "View High Scores",
-                        color: Color.blueEarth, 
+                        color: Color.blueEarth,
                         action: {
                             showingHighScoresSheet = true
                         }

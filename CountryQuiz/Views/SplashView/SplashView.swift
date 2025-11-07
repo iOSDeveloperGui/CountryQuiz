@@ -58,6 +58,7 @@ struct SplashView: View{
                 .environmentObject(appState)
                 .interactiveDismissDisabled(true)
                 .presentationDetents([.medium, .large])
+                
         }
         
     }

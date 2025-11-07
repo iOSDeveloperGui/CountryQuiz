@@ -20,7 +20,7 @@ struct GameOverButton: View{
                 .font(.title2)
                 .bold()
                 .padding(.vertical, 16)
-                .background(color) // Uses the provided color
+                .background(color)
                 .foregroundStyle(.white)
                 .clipShape(RoundedRectangle(cornerRadius: 16))
                 .shadow(color: .black.opacity(0.3), radius: 5, y: 3)

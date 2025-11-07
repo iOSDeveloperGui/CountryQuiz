@@ -26,7 +26,7 @@ struct CoreDataView: View {
                     
                     List{
                         ForEach(Array(viewModel.scores.enumerated()), id: \.element.objectID) { index, score in
-                            HStack{
+                            HStack(alignment: .center){
                                 Image(score.travellerImage ?? "person.crop.circle")
                                     .resizable()
                                     .scaledToFit()
