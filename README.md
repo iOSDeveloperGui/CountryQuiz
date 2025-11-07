@@ -1,6 +1,11 @@
 # 🌍 Country Quiz: Flag Explorer
   A fun, engaging quiz application built with SwiftUI and Core Data, challenging users to identify country flags based on chosen difficulty and track their progress through a high score system.
-  
+
+<img width="400" height="3408" alt="iPhone 16 - 2" src="https://github.com/user-attachments/assets/248632b8-042a-4cd6-8be1-cebdf053f3ec" />
+<img width="400" height="3408" alt="iPhone 16 - 1" src="https://github.com/user-attachments/assets/2f24b9bf-ecc8-4412-b18b-2da9bc1ee1d5" />
+
+
+
 <img width="212" height="399" alt="image" src="https://github.com/user-attachments/assets/85221f70-ba9b-4f76-8d73-1552a35ab67e" />
 <img width="217" height="394" alt="image" src="https://github.com/user-attachments/assets/0339b116-a165-4784-acfa-910b9a82bea3" />
 <img width="216" height="397" alt="image" src="https://github.com/user-attachments/assets/f0015f9f-ee18-4a68-9f5b-d48f4f1dab0b" />
