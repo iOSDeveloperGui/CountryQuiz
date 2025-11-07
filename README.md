@@ -2,7 +2,8 @@
   A fun, engaging quiz application built with SwiftUI and Core Data, challenging users to identify country flags based on chosen difficulty and track their progress through a high score system.
 
 <img width="400" height="3408" alt="iPhone 16 - 2" src="https://github.com/user-attachments/assets/248632b8-042a-4cd6-8be1-cebdf053f3ec" />
-<img width="400" height="3408" alt="iPhone 16 - 1" src="https://github.com/user-attachments/assets/2f24b9bf-ecc8-4412-b18b-2da9bc1ee1d5" />
+<img width="400" height="3408" alt="iPhone 16 - 1" src="https://github.com/user-attachments/assets/a2aae6e9-2254-4d5a-876f-4b37986be8ff" />
+
 
 
 
