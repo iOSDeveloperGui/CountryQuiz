@@ -11,7 +11,6 @@ import SwiftUI
 @MainActor
 final class QuizViewModel: ObservableObject, GameTimeDelegate{
     
-    //MARK: - Property (DI)
     private let countryService: CountryService
     private let questionGenerator: QuestionGenerator
     private let gameTimer: GameTimer
@@ -33,7 +32,6 @@ final class QuizViewModel: ObservableObject, GameTimeDelegate{
         self.gameTimer.delegate = self
     }
     
-    //MARK: - @Published UI State
     @Published var currentQuestion: QuizQuestion?
     @Published var isLoading: Bool = true
     @Published var hearts = 5
@@ -45,7 +43,6 @@ final class QuizViewModel: ObservableObject, GameTimeDelegate{
     @Published var currentQuestionIndex: Int = 1
     @Published var isDataLoaded: Bool = false
     
-    //MARK: - Computed properties
     var difficultName: String{
         return difficulty.rawValue.capitalized
     }
@@ -59,12 +56,10 @@ final class QuizViewModel: ObservableObject, GameTimeDelegate{
         return "Questions: \(current) of \(totalQuestions)"
     }
     
-    //MARK: - Private Properties
     public var countries: [Country] = []
     private var usedCountries: Set<String> = []
     private let bannerMessages: [String] = ["Awesome! 😁", "Good job! 😀", "Great! 😀"]
     
-    //MARK: - Functions
     public func loadData() async{
         guard !isDataLoaded else { return }
         

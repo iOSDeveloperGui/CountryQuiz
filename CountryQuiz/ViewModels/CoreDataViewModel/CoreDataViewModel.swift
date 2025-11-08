@@ -40,7 +40,7 @@ final class CoreDataViewModel: ObservableObject{
     func saveScore(score: Int, travellerName: String, travellerImage: String){
         guard let coordinator = viewContext.persistentStoreCoordinator,
               !coordinator.persistentStores.isEmpty else {
-            print("❌ WARNING: Attempted to save before persistent stores were loaded. Delaying save.")
+            print(" Attempted to save before persistent stores were loaded. Delaying save.")
             return
         }
         
@@ -68,7 +68,7 @@ final class CoreDataViewModel: ObservableObject{
     func deleteAllScores(){
         guard let coordinator = viewContext.persistentStoreCoordinator,
               !coordinator.persistentStores.isEmpty else {
-            print("❌ WARNING: Attempted to delete before persistent stores were loaded. Ignoring request.")
+            print("Attempted to delete before persistent stores were loaded. Ignoring request.")
             return
         }
         

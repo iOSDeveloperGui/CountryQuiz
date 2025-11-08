@@ -11,20 +11,16 @@ import CoreData
 @MainActor
 class AppState: ObservableObject{
     
-    //MARK: - State
     @Published var currentScreen: Screen = .splash
     @Published var selectedCharacter: Traveller?
     @Published var showingInfoSheet: Bool = false
     
-    //MARK: - Service (DI)
     private let countryService: CountryService
     private let questionGenerator: QuestionGenerator
     let coreDataVM: CoreDataViewModel
     
-    //MARK: - ViewModels
     private let levelViewModel: LevelViewModel
     
-    //MARK: - Initialization
     init(context: NSManagedObjectContext){
         let serviceData = CountryServiceData()
         self.countryService = CountryService(countryServiceData: serviceData)
@@ -33,8 +29,6 @@ class AppState: ObservableObject{
         self.levelViewModel = LevelViewModel()
         self.currentScreen = .splash
     }
-    
-    //MARK: - Navigation Functions
     
     public func showInfo(){
         if case .splash = currentScreen {
